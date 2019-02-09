@@ -8,12 +8,13 @@
         #liste {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-             margin: 0 auto;
+            margin: 0 auto;
             background-color: #f24a4a;
             border: 10px solid #2b147b;
             padding: 1vw;
             grid-gap: 10px;
         }
+
         .vis {
 
             background-color: white;
@@ -29,16 +30,46 @@
         }
 
 
-        img{
-            width:300px;
+        img {
+            width: 300px;
         }
-        h3{
+
+        #banner {
+            background-image: url("banner.jpg");
+            width: 100%;
+            height: 300px;
+        }
+
+        .button {
+            background-color: #ff8c00;
+            border: 10px;
+            border-color: #de0000;
+            border-radius: 1%;
+            box-shadow: rgba(0, 0, 0, .35) 0 1rem 1rem 0;
+            border-radius: .8rem;
+            padding: 5px 7px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+
+        }
+        .knapper {
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+
+        }
+
+        h3 {
             font-size: 36px;
             font-style: bold;
         }
 
-        h4{
-              font-size: 18px;
+        h4 {
+            font-size: 18px;
             font-style: bold;
 
         }
@@ -47,11 +78,17 @@
 </head>
 
 <body>
+    <div id="banner"></div>
 
-   <h3><center>Babuska's lækkerier</center></h3>
+   <div id="knapper">
+    <button class="button">Forretter</button>
+    <button class="button">Hovedretter</button>
+    <button class="button">Dessert</button>
+    <button class="button">Drikkevarer</button>
+    <button class="button">Sideorders</button>
+
+    </div>
     <div id="liste">
-
-
     </div>
 
 
