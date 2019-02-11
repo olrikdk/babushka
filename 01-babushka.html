@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-	<html>
-	    <head>
+<html>
+
+<head>
     <title>Babuska</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-
-        body{
+        body {
             background-color: #de0000;
 
         }
+
         #liste {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
@@ -61,13 +62,15 @@
             cursor: pointer;
 
         }
+
         .knapper {
             display: flex;
             justify-content: center;
             flex-direction: row;
 
         }
-        .valgt{
+
+        .valgt {
             background-color: red;
 
         }
@@ -82,6 +85,7 @@
             font-style: bold;
 
         }
+
     </style>
 
 </head>
@@ -89,20 +93,21 @@
 <body>
     <div id="banner"></div>
 
-   <div id="knapper">
-    <button class="button" "valgt">Forretter</button>
-    <button class="button" "valgt">Hovedretter</button>
-    <button class="button" "valgt">Dessert</button>
-    <button class="button" "valgt">Drikkevarer</button>
-    <button class="button" "valgt">Sideorders</button>
+    <nav id="knapper">
+        <button class="button" "valgt" data-hold="forretter">Forretter</button>
+        <button class="button" "valgt" data-hold="hovedretter">Hovedretter</button>
+        <button class="button" "valgt" data-hold="dessert">Dessert</button>
+        <button class="button" "valgt" data-hold="drikkevarer">Drikkevarer</button>
+        <button class="button" "valgt" data-hold="sideorders">Sideorders</button>
 
-    </div>
+    </nav>
     <div id="liste">
     </div>
 
 
     <script>
         let retter = [];
+        let filter = "alle";
         document.addEventListener("DOMContentLoaded", start);
 
         function start() {
@@ -116,25 +121,45 @@
             }
 
             function visMad() {
-
+                dest.innerHTML = "";
                 retter.forEach(retter => {
-                    dest.innerHTML += `
-<div class="vis">
+                    if (filter == "alle" || filter == retter.kategori) {
+                        dest.innerHTML +=
+
+                            `
+                            <div class="vis">
                                 <div class="mad">
                                 <h4>${retter.navn} <br></h4>
-<img src="${retter.billede}" alt="mangler foto">
+                <img src="${retter.billede}" alt="mangler foto">
                                 <p>  ${retter.lang} <br></p>
-<p>Pris: ${retter.pris}<br></p>
+                <p>Pris: ${retter.pris}<br></p>
 
-<p>Oprindelse: ${retter.oprindelse} </p>
-<p>Kategori: ${retter.kategori}</p>
+                <p>Oprindelse: ${retter.oprindelse} </p>
+                    <p>Kategori: ${retter.kategori}</p>
 
                                </div> </div> `
+                    }
                 })
+                //TJEK tegn!
+            }
 
+            document.querySelectorAll(".filter").forEach(elm => {
+                elm.addEventListener("click", filtrering);
+            })
+
+            function filtrering() {
+                filter = this.getAttribute("data-hold");
+                document.querySelector("h1").textContent = this.textContent;
+                document.querySelectorAll(".filter").forEach(elm => {
+                    elm.classList.remove("valgt");
+                })
+                this.classList.add("valgt");
+                visPersoner();
             }
             getJson();
         }
+
     </script>
 </body>
-	</html>
+
+</html>
