@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bistro Babushka</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Russo+One" rel="stylesheet">
+
+    <style>
+        body {
+            width: 100vw;
+            margin: auto;
+        }
+        h2 {
+            font-family: tahoma;
+            font-weight: 700;
+            font-size: 1.2em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+        h3 {
+            font-family: tahoma;
+            font-weight: 700;
+            font-size: 1.2em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: left;
+        }
+        p {
+            font-family: 'Sintony', sans-serif;
+            font-size: 0.9em;
+            line-height: 1.8em;
+            color: #626262;
+            margin-top: 15px;
+            text-align: center;
+        }
+        a {
+            text-decoration: none;
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+            transition-duration: 0.4s;
+        }
+        a:hover {
+            background-color: #e3870a;
+        }
+        img {
+            width: 100%;
+        }
+        .cover {
+            background-color: #ff2020;
+            background-image: url(media/russianarchitechture.jpg);
+            background-blend-mode: screen;
+            background-size: 100%;
+            background-repeat: no-repeat;
+            width: 100%;
+            height: 350px;
+            margin-top: -6vw;
+            font-family: 'Russo One', sans-serif;
+            font-size: 2vw;
+            color: #000000;
+            letter-spacing: 5px;
+            line-height: 350px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        .ret_box {
+            margin: 10px;
+            cursor: pointer;
+            background-color: #fff2f2;
+            padding: 15px;
+            transition-duration: 0.5s;
+        }
+        .ret_box:hover {
+            background-color: #ffb0b0;
+            transition-duration: 0.5s;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            margin-top: -40px;
+            background-color: white;
+            box-shadow: 0px 0px 8px #9b9b9b;
+            padding: 10px;
+            margin-bottom: 25px;
+        }
+        .filter {}
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        }
+        @media only screen and (max-width: 1050px) {
+            .container {
+                margin-bottom: 0px;
+            }
+            .grid-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            h1 {
+                font-size: 40px;
+            }
+        }
+        @media only screen and (max-width: 600px) {
+            .container {
+                margin-bottom: 0px;
+            }
+            .grid-container {
+                grid-template-columns: repeat(1, 1fr);
+            }
+            .cover {
+                background-color: #ff2020;
+                background-image: url(media/russianarchitechture.jpg);
+                background-blend-mode: screen;
+                background-size: 120%;
+                background-repeat: no-repeat;
+            }
+            .cover h1 {
+                font-family: 'Russo One', sans-serif;
+                font-size: 35px;
+                color: #000000;
+                letter-spacing: 5px;
+                text-align: center;
+                text-transform: uppercase;
+                line-height: 40px;
+                padding-top: 110px;
+            }
+        }
+        .topwrapper {
+            margin-left: 15px;
+            margin-right: 15px;
+        }
+        .kategori-boks {
+            background-color: white;
+            width: 130px;
+            border-radius: 20px;
+        }
+        .kategori-boks p {
+            font-family: tahoma;
+            font-weight: 700;
+            font-size: 9pt;
+            letter-spacing: 0.5pt;
+            text-transform: uppercase;
+            color: black;
+        }
+        button {
+            border: solid;
+            border-width: 2px;
+            border-radius: 10px;
+            border-color: #ff2020;
+            color: #ff2020;
+            cursor: pointer;
+            margin-bottom: 10px;
+            transition-duration: 0.5s;
+        }
+        button:hover {
+            color: white;
+            background-color: #ff2020;
+            transition-duration: 0.5s;
+        }
+        .valgt {
+            color: white;
+            background-color: #ff2020;
+            transition-duration: 0.5s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cover">
+        <h1>Bistro Babushka</h1>
+    </div>
+    <div class="container">
+        <div class="topwrapper">
+            <h3>Alle</h3>
+            <div class="menu">
+                <button class="filter valgt" data-kategori="alle">Alle</button>
+                <button class="filter" data-kategori="forretter">Forretter</button>
+                <button class="filter" data-kategori="hovedretter">Hovedretter</button>
+                <button class="filter" data-kategori="desserter">Desserter</button>
+                <button class="filter" data-kategori="drikkevarer">Drikkevarer</button>
+                <button class="filter" data-kategori="sideorders">Sideorders</button>
+
+            </div>
+        </div>
+        <div class="grid-container">
+
+        </div>
+    </div>
+
+    <script>
+        let alleRetter = [];
+        let filter = "alle";
+        document.addEventListener("DOMContentLoaded", start);
+        function start() {
+            let modtager = document.querySelector(".grid-container");
+            async function hentJson() {
+                let jsonData = await fetch("retter.json");
+                alleRetter = await jsonData.json();
+                visRetter();
+            }
+            function visRetter() {
+                modtager.innerHTML = "";
+                alleRetter.forEach(ret => {
+                    if (filter == "alle" || filter == ret.kategori) {
+                        modtager.innerHTML += `<div class="ret_box"><div class="kategori-boks"><p>${ret.kategori}</p></div><img src="${ret.billede}" alt="${ret.navn}"><h2>${ret.navn}</h2><p>${ret.kort}<br></p></div>`;
+                    }
+                })
+            } // funktion visRetter slutter
+            document.querySelectorAll(".filter").forEach(but => {
+                but.addEventListener("click", filtrering);
+            });
+            function filtrering() {
+                document.querySelectorAll(".filter").forEach(but => {
+                    but.classList.remove("valgt");
+                    console.log("valgt er fjernet");
+                });
+                this.classList.add("valgt");
+                document.querySelector("h3").textContent = this.textContent;
+                filter = this.getAttribute("data-kategori");
+                visRetter();
+            }
+            hentJson();
+        } // Slut på funktionen start
+    </script>
+</body>
+
+</html>

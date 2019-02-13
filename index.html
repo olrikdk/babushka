@@ -39,7 +39,7 @@
 
         h1 {
             color: black;
-            text-align: right;
+            text-align: center;
             font-family: "american typewriter";
         }
         h3 {
@@ -84,6 +84,17 @@
             font-size: 16px;
             margin: 4px 2px;
             cursor: pointer;
+        }
+        .adresse{
+            display:flex;
+            justify-content: space-around;
+            flex-direction: row;
+            font-weight: bold;
+            font-family: "american typewriter";
+            padding: 5px 7px;
+            text-align: center;
+            font-size: 16px;
+            margin: 4px 2px;
         }
 
 
@@ -165,6 +176,19 @@
 
     <footer>
 
+    <div class="adresse">
+       <h1>Find os:
+       <br>найди нас:
+       <br>Find us:</h1>
+       <div></div>
+       <div><img src="restaurantsmall.png" alt="restauranten">
+       <p>Grønnegården 11<br>
+       1263 KBH K<br>
+       mobil: 0045 2381942</p></div>
+        <div><img src="map.jpg" alt="kort"></div>
+
+    </div>
+
     </footer>
 
 
@@ -190,8 +214,9 @@
                     <div class="visindhold">
                     <img src= ${ret.billede} alt=${ret.navn}><br>
                     <h2>${ret.navn}</h2> <br>
+<p>${ret.kort}</p>
   <h3>Pris: ${ret.pris},-</h3>
-                    <p>${ret.lang}</p> <br>
+                     <br>
 
                     </div>`;
                     dest.insertAdjacentHTML("beforeend", template);
