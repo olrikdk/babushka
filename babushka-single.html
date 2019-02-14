@@ -173,7 +173,17 @@
                 <button class="filter" data-hold ="desserter">Desserter</button>
                 <button class="filter" data-hold ="drikkevarer">Drikkevarer</button>
                 <button class="filter" data-hold ="sideorders">Sideorders</button>
+<div class="topwrapper">
+	            <h3>Alle</h3>
+	            <div class="menu">
+	                <button class="filter valgt" data-kategori="alle">Alle</button>
+	                <button class="filter" data-kategori="forretter">Forretter</button>
+	                <button class="filter" data-kategori="hovedretter">Hovedretter</button>
+	                <button class="filter" data-kategori="desserter">Desserter</button>
+	                <button class="filter" data-kategori="drikkevarer">Drikkevarer</button>
+	                <button class="filter" data-kategori="sideorders">Sideorders</button>
 
+	            </div>
             </div>
         </div>
         <div class="liste">
@@ -201,40 +211,69 @@
     <script>
         let alleRetter = [];
         let filter = "alle";
+
+        let alleRetter;
         document.addEventListener("DOMContentLoaded", start);
+         async function hentJson(){
         function start() {
             let modtager = document.querySelector(".liste");
-            async function hentJson() {
+
                 let jsonData = await fetch("retter.json");
+            async function hentJson(){
                 alleRetter = await jsonData.json();
+                let jsonData = await fetch("retter.json");
+
                 visRetter();
             }
-            function visRetter() {
-                modtager.innerHTML = "";
-                alleRetter.forEach(ret => {
-                    if (filter == "alle" || filter == ret.kategori) {
-                        modtager.innerHTML += `<div class="ret_box">
+            **
+                alleRetter = await jsonData.json();
+
+	        function visRetter() {
+	                visRetter();
+	            }
+
+	            const modtager = document.querySelector(".grid-container");
+	            function visRetter() {
+
+	            alleRetter.forEach(ret => {
+	                modtager.innerHTML += `<div class="ret_box">
 <div class="kategori-boks"><p>${ret.kategori}</p></div>
 <img src="${ret.billede}" alt="${ret.navn}">
 <h2>${ret.navn}</h2><p>${ret.kort}<br></p></div>`;
-                    }
-                })
-            } // funktion visRetter slutter
-            document.querySelectorAll(".filter").forEach(but => {
-                but.addEventListener("click", filtrering);
-            });
-            function filtrering() {
-                document.querySelectorAll(".filter").forEach(but => {
-                    but.classList.remove("valgt");
-                    console.log("valgt er fjernet");
-                });
-                this.classList.add("valgt");
-                document.querySelector("h3").textContent = this.textContent;
-                filter = this.getAttribute("data-kategori");
-                visRetter();
-            }
-            hentJson();
-        } // Slut på funktionen start
+	            })
+	        }
+	                modtager.innerHTML = "";
+
+	                alleRetter.forEach(ret => {
+	                    if (filter == "alle" || filter == ret.kategori) {
+	                        modtager.innerHTML += `<div class="ret_box">
+<div class="kategori-boks"><p>${ret.kategori}</p></div>
+<img src="${ret.billede}" alt="${ret.navn}">
+<h2>${ret.navn}</h2><p>${ret.kort}<br></p></div>`;
+	                    }
+	                })
+	            } // funktion visRetter slutter
+
+	            document.querySelectorAll(".filter").forEach(but => {
+	                but.addEventListener("click", filtrering);
+	            });
+
+	            function filtrering() {
+	                document.querySelectorAll(".filter").forEach(but => {
+	                    but.classList.remove("valgt");
+	                    console.log("valgt er fjernet");
+	                });
+	                this.classList.add("valgt");
+
+	                document.querySelector("h3").textContent = this.textContent;
+	                filter = this.getAttribute("data-hold");
+	                visRetter();
+	            }
+
+	            hentJson();
+
+	        }
+
     </script>
 </body>
 
